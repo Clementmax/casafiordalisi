@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa Fiordalisi | Tuscany Holiday Rental</title>
+  <meta name="description" content="Discover Casa Fiordalisi, a charming 4-bedroom holiday rental in the heart of Tuscany. Private pool, scenic views, and an authentic Italian escape." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream:      #FAF8F4;
+      --stone:      #E8E0D0;
+      --olive:      #3D4A2E;
+      --terracotta: #C4724A;
+      --terra-dark: #A35A35;
+      --charcoal:   #2A2A2A;
+      --mid:        #6B6560;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--charcoal); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+      background: rgba(250,248,244,0.96); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--stone); transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo span { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--olive); letter-spacing: .02em; }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a { font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--olive); text-decoration: none; position: relative; padding-bottom: 3px; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: var(--terracotta); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta { background: var(--terracotta) !important; color: #fff !important; padding: 10px 22px !important; border-radius: 2px; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--terra-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--olive); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 580px;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_1920,h_1080,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg') center/cover no-repeat;
+    }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.1) 0%, rgba(20,30,15,.58) 100%); }
+    .hero-content { position: relative; text-align: center; color: #fff; padding: 0 24px; max-width: 780px; }
+    .hero-eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; opacity: .8; margin-bottom: 20px; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 22px; text-shadow: 0 2px 24px rgba(0,0,0,.35); }
+    .hero-sub { font-size: 1rem; font-weight: 300; opacity: .88; margin-bottom: 40px; line-height: 1.75; }
+    .btn { display: inline-block; padding: 14px 34px; font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background .2s, transform .15s; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--terracotta); color: #fff; }
+    .btn-primary:hover { background: var(--terra-dark); }
+    .btn-outline-light { border: 1px solid rgba(255,255,255,.65); color: #fff; margin-left: 12px; }
+    .btn-outline-light:hover { background: rgba(255,255,255,.12); }
+    .hero-scroll { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.65); font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; text-align: center; animation: bounce 2.2s infinite; }
+    .hero-scroll::before { content: '↓'; display: block; font-size: 1.1rem; margin-bottom: 5px; }
+    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(7px); } }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 48px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .eyebrow { font-size: .68rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: var(--olive); line-height: 1.2; margin-bottom: 22px; }
+    .lead { font-size: 1.05rem; font-weight: 300; line-height: 1.85; color: var(--mid); max-width: 660px; }
+
+    /* ── THE HOUSE ── */
+    #house { background: var(--cream); }
+    .house-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 52px; }
+    .house-text p { font-size: .98rem; line-height: 1.85; color: var(--charcoal); margin-bottom: 18px; }
+    .house-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .house-photos img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 2px; display: block; transition: transform .4s ease; cursor: pointer; }
+    .house-photos img:first-child { grid-column: 1 / -1; aspect-ratio: 16/9; }
+    .house-photos img:hover { transform: scale(1.02); }
+
+    /* ── FEATURES ── */
+    #features { background: var(--olive); }
+    #features h2 { color: var(--stone); }
+    #features .eyebrow { color: #C4A882; }
+    #features .lead { color: rgba(232,224,208,.72); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 2px; margin-top: 52px; }
+    .feature-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.07); padding: 32px 26px; transition: background .2s; }
+    .feature-card:hover { background: rgba(255,255,255,.09); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .feature-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #fff; margin-bottom: 9px; }
+    .feature-card p { font-size: .875rem; color: rgba(255,255,255,.58); line-height: 1.7; }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--stone); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); grid-template-rows: 220px 220px; gap: 8px; margin-top: 44px; }
+    .gallery-grid .g-tall { grid-row: 1 / 3; }
+    .gallery-grid .g-wide { grid-column: span 2; }
+    .gallery-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; cursor: pointer; display: block; transition: opacity .3s, transform .4s; }
+    .gallery-grid img:hover { opacity: .9; transform: scale(1.01); }
+
+    /* ── THINGS TO DO ── */
+    #todo { background: var(--cream); }
+    .todo-intro { max-width: 600px; margin-bottom: 52px; }
+    .todo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .todo-card { background: #fff; border-radius: 3px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,.06); transition: transform .25s, box-shadow .25s; text-decoration: none; color: inherit; display: block; }
+    .todo-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,.1); }
+    .todo-card-img { width: 100%; aspect-ratio: 3/2; object-fit: cover; display: block; }
+    .todo-card-body { padding: 20px 22px 24px; }
+    .todo-tag { font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 8px; }
+    .todo-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--olive); line-height: 1.4; margin-bottom: 10px; }
+    .todo-card p { font-size: .84rem; color: var(--mid); line-height: 1.65; }
+    .todo-more { text-align: center; margin-top: 40px; }
+    .todo-more a { font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--olive); text-decoration: none; border-bottom: 1px solid var(--terracotta); padding-bottom: 2px; }
+
+    /* ── AVAILABILITY ── */
+    #availability { background: var(--stone); }
+    .cal-legend { display: flex; gap: 26px; margin: 22px 0 44px; flex-wrap: wrap; }
+    .cal-legend-item { display: flex; align-items: center; gap: 8px; font-size: .84rem; color: var(--mid); }
+    .cal-dot { width: 13px; height: 13px; border-radius: 50%; }
+    .dot-available { background: #7BAE7F; }
+    .dot-booked    { background: #C4724A; }
+    .dot-today     { background: var(--olive); }
+    .calendars-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(285px,1fr)); gap: 24px; }
+    .cal-month { background: #fff; border: 1px solid rgba(0,0,0,.07); border-radius: 4px; padding: 22px; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
+    .cal-month-header { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--olive); text-align: center; margin-bottom: 16px; }
+    .cal-weekdays { display: grid; grid-template-columns: repeat(7,1fr); margin-bottom: 6px; }
+    .cal-weekdays span { text-align: center; font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); padding: 4px 0; }
+    .cal-days { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
+    .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: .78rem; border-radius: 50%; }
+    .cal-day.available { background: rgba(123,174,127,.18); color: #3a7040; font-weight: 600; }
+    .cal-day.booked    { background: rgba(196,114,74,.14); color: #8c4a27; text-decoration: line-through; }
+    .cal-day.today     { background: var(--olive); color: #fff; font-weight: 700; }
+    .cal-day.past      { color: #ccc; }
+    .cal-cta { margin-top: 44px; text-align: center; padding: 44px 24px; background: var(--olive); border-radius: 4px; color: #fff; }
+    .cal-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 10px; }
+    .cal-cta p { opacity: .72; margin-bottom: 24px; font-size: .95rem; }
+
+    /* ── LOCATION ── */
+    #location { background: var(--olive); }
+    #location h2 { color: var(--stone); }
+    #location .eyebrow { color: #C4A882; }
+    #location .lead { color: rgba(232,224,208,.72); }
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; margin-top: 52px; }
+    .nearby-places { list-style: none; }
+    .nearby-places li { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.1); font-size: .93rem; }
+    .nearby-places li:last-child { border-bottom: none; }
+    .nearby-name { font-weight: 700; color: rgba(255,255,255,.9); }
+    .nearby-dist { color: #C4A882; font-size: .82rem; font-weight: 600; }
+    .map-wrap { border-radius: 4px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.25); height: 360px; }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* ── HOW TO BOOK ── */
+    #book { background: var(--cream); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 36px; margin-top: 52px; }
+    .step { text-align: center; }
+    .step-num { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--terracotta); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--terracotta); }
+    .step h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--olive); margin-bottom: 9px; }
+    .step p { font-size: .875rem; line-height: 1.7; color: var(--mid); }
+    .book-email { text-align: center; margin-top: 48px; }
+    .book-email a { font-size: 1.15rem; font-weight: 700; color: var(--terracotta); text-decoration: none; border-bottom: 2px solid rgba(196,114,74,.3); padding-bottom: 2px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--charcoal); color: rgba(255,255,255,.55); padding: 64px 48px 40px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #fff; margin-bottom: 14px; }
+    .footer-brand p { font-size: .875rem; line-height: 1.75; }
+    footer h4 { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 10px; }
+    footer a { color: rgba(255,255,255,.55); text-decoration: none; font-size: .875rem; }
+    footer a:hover { color: var(--terracotta); }
+    .footer-bottom { max-width: 1100px; margin: 44px auto 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px; display: flex; justify-content: space-between; font-size: .75rem; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.92); align-items: center; justify-content: center; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; }
+    .lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 2.4rem; cursor: pointer; background: none; border: none; line-height: 1; }
+    .lb-prev, .lb-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,.1); border: none; color: #fff; font-size: 1.8rem; padding: 12px 18px; cursor: pointer; transition: background .2s; }
+    .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,.22); }
+    .lb-prev { left: 12px; } .lb-next { right: 12px; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) { .todo-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; flex-direction: column; gap: 20px; position: absolute; top: 72px; left: 0; right: 0; background: var(--cream); padding: 28px 24px; border-bottom: 1px solid var(--stone); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      section { padding: 60px 20px; }
+      .house-grid, .location-grid { grid-template-columns: 1fr; gap: 32px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-grid .g-tall, .gallery-grid .g-wide { grid-row: auto; grid-column: auto; }
+      .gallery-grid img { height: 160px; }
+      .todo-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; }
+      .btn-outline-light { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#"><span>Casa Fiordalisi</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#house">The House</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#todo">Things To Do</a></li>
+    <li><a href="#availability">Availability</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="mailto:welcomefiordalisi@gmail.com" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Tuscany · Valdichiana · Italy</p>
+    <h1 class="hero-title">Your Perfect Vacation Home<br><em>in the Heart of Tuscany</em></h1>
+    <p class="hero-sub">A beautifully renovated farmhouse with an infinity pool,<br>panoramic valley views, and four spacious bedrooms.</p>
+    <a href="#availability" class="btn btn-primary">Check Availability</a>
+    <a href="#house" class="btn btn-outline-light">Discover the House</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- THE HOUSE -->
+<section id="house">
+  <div class="section-inner">
+    <p class="eyebrow">The Property</p>
+    <h2>Casa Fiordalisi</h2>
+    <div class="house-grid">
+      <div class="house-text">
+        <p>Casa Fiordalisi is a stunning four-bedroom renovated farmhouse featuring a fabulous infinity pool and breathtaking views across the Valdichiana valley. The traditional stone house blends authentic Tuscan character — exposed beams, terracotta floors, a grand stone fireplace — with a modern, light-filled open-plan layout.</p>
+        <p>Private, well-equipped, and family-friendly, the gardens and pool area offer panoramic vistas extending to Cortona and Castiglion Fiorentino. The perfect base to explore the wonders of Tuscany and Umbria at your own pace.</p>
+        <p>Situated between the historic towns of Cortona and Siena, and close to the A1 motorway, Casa Fiordalisi puts Renaissance culture, celebrated local wines, and the UNESCO-listed Val d'Orcia all within easy reach.</p>
+        <a href="mailto:welcomefiordalisi@gmail.com" class="btn btn-primary" style="margin-top:14px;">Enquire About Dates</a>
+      </div>
+      <div class="house-photos">
+        <img src="https://static.wixstatic.com/media/fef05b_29dc9bb49dd2427fa6063fcec7989a3b~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_8774_edited_edited.jpg"
+             alt="Pool with castle view" onclick="openLightbox(0)" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png/v1/fill/w_480,h_360,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png"
+             alt="Infinity pool" onclick="openLightbox(1)" loading="lazy" />
+        <img src="https://static.wixstatic.com/media/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg/v1/fill/w_480,h_360,al_c,q_85,enc_avif,quality_auto/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg"
+             alt="Pool from garden" onclick="openLightbox(2)" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner">
+    <p class="eyebrow">What's Included</p>
+    <h2>Everything You Need</h2>
+    <p class="lead">A complete Tuscan retreat — nothing left to chance.</p>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🏠</div><h3>4 Bedrooms</h3><p>Spacious, light-filled rooms with traditional Tuscan furnishings and all modern comforts for families and groups.</p></div>
+      <div class="feature-card"><div class="feature-icon">🏊</div><h3>Infinity Pool</h3><p>A beautiful pool with panoramic views across the valley — perfect for long, lazy Tuscan afternoons.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔥</div><h3>Stone Fireplace</h3><p>A grand traditional fireplace and wood-burning stove at the heart of the open-plan living room.</p></div>
+      <div class="feature-card"><div class="feature-icon">🌿</div><h3>Private Gardens</h3><p>Extensive mature gardens with a shaded terrace, sun loungers, and complete privacy surrounded by countryside.</p></div>
+      <div class="feature-card"><div class="feature-icon">🍽️</div><h3>Terrace Dining</h3><p>A fully equipped kitchen and outdoor dining terrace made for long Italian evenings under the Tuscan sky.</p></div>
+      <div class="feature-card"><div class="feature-icon">📍</div><h3>Perfect Location</h3><p>Close to Cortona, Montepulciano, Siena, and the A1 — the ideal base for day trips across Tuscany and Umbria.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+    <p class="eyebrow">Photo Gallery</p>
+    <h2>See the House</h2>
+    <div class="gallery-grid" id="galleryGrid">
+      <img class="g-tall" src="https://static.wixstatic.com/media/fef05b_29dc9bb49dd2427fa6063fcec7989a3b~mv2.jpg/v1/fill/w_600,h_800,al_c,q_85,enc_avif,quality_auto/IMG_8774_edited_edited.jpg"   alt="Pool with castle" onclick="openLightbox(0)" loading="lazy" />
+      <img class="g-wide" src="https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_900,h_400,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg" alt="Brolio from pool" onclick="openLightbox(1)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png" alt="Infinity pool" onclick="openLightbox(2)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg" alt="Pool from garden" onclick="openLightbox(3)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg" alt="Dining room" onclick="openLightbox(4)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg" alt="Dining area" onclick="openLightbox(5)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg" alt="Lounge" onclick="openLightbox(6)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg" alt="Garden view" onclick="openLightbox(7)" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- THINGS TO DO -->
+<section id="todo">
+  <div class="section-inner">
+    <div class="todo-intro">
+      <p class="eyebrow">Explore the Region</p>
+      <h2>Things To Do</h2>
+      <p class="lead">From hilltop towns to hot air balloons, Lake Trasimeno to the food markets of Florence — there is no shortage of things to discover from Casa Fiordalisi.</p>
+    </div>
+    <div class="todo-grid">
+      <a href="https://www.casafiordalisi.com/post/5-easy-daytrips-by-train-from-florence" target="_blank" rel="noopener" class="todo-card">
+        <img class="todo-card-img" src="https://static.wixstatic.com/media/5f33fc_51308ab0366e4c6a9f78ec87ccd73add~mv2.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_51308ab0366e4c6a9f78ec87ccd73add~mv2.jpg" alt="Florence" loading="lazy" />
+        <div class="todo-card-body">
+          <p class="todo-tag">Day Trips</p>
+          <h3>5 Easy Daytrips by Train from Florence</h3>
+          <p>Tuscan cities, real food and zero car hire — all under one hour from Florence.</p>
+        </div>
+      </a>
+      <a href="https://www.casafiordalisi.com/post/cortona-summer-evenings-swallows-and-the-timeless-soul-of-a-tuscan-hill-town" target="_blank" rel="noopener" class="todo-card">
+        <img class="todo-card-img" src="https://static.wixstatic.com/media/5f33fc_af1b1a06175c4d6b897d49e50121aa5ff000.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_af1b1a06175c4d6b897d49e50121aa5ff000.jpg" alt="Cortona" loading="lazy" />
+        <div class="todo-card-body">
+          <p class="todo-tag">Culture</p>
+          <h3>Cortona: Summer Evenings & the Soul of a Tuscan Hill Town</h3>
+          <p>Just 15 minutes away, Cortona is one of Tuscany's most beautiful and authentic hilltop towns.</p>
+        </div>
+      </a>
+      <a href="https://www.casafiordalisi.com/post/ballooning-in-tuscany-start-planning-your-dream-trip-to-italy-for-2026" target="_blank" rel="noopener" class="todo-card">
+        <img class="todo-card-img" src="https://static.wixstatic.com/media/5f33fc_866d8c431f93411a8b830bfc295d4dcb~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_866d8c431f93411a8b830bfc295d4dcb~mv2.jpeg" alt="Ballooning Tuscany" loading="lazy" />
+        <div class="todo-card-body">
+          <p class="todo-tag">Activities</p>
+          <h3>Ballooning Over Tuscany — A Bucket List Experience</h3>
+          <p>Rolling hills, vineyards, olive groves and golden morning light. One of the most magical experiences in Italy.</p>
+        </div>
+      </a>
+      <a href="https://www.casafiordalisi.com/post/lake-trasimeno-fresh-fish-cycling-island-adventures" target="_blank" rel="noopener" class="todo-card">
+        <img class="todo-card-img" src="https://static.wixstatic.com/media/5f33fc_3190468f792c40fdbefd018b275b08f6~mv2.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_3190468f792c40fdbefd018b275b08f6~mv2.jpg" alt="Lake Trasimeno" loading="lazy" />
+        <div class="todo-card-body">
+          <p class="todo-tag">Nature</p>
+          <h3>Lake Trasimeno: Fresh Fish, Cycling & Island Adventures</h3>
+          <p>Italy's fourth largest lake — a peaceful alternative to the coast, just 30 minutes from the house.</p>
+        </div>
+      </a>
+      <a href="https://www.casafiordalisi.com/post/orvieto-is-an-easy-day-trip-from-casa-fiordalisi-or-visit-en-route-from-rome" target="_blank" rel="noopener" class="todo-card">
+        <img class="todo-card-img" src="https://static.wixstatic.com/media/5f33fc_1c0620621f644edba1ef4b3a6b9dc531~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_1c0620621f644edba1ef4b3a6b9dc531~mv2.jpeg" alt="Orvieto" loading="lazy" />
+        <div class="todo-card-body">
+          <p class="todo-tag">Day Trips</p>
+          <h3>Orvieto — Easy Day Trip or Stop En Route from Rome</h3>
+          <p>Perched on a volcanic plateau, Orvieto's Gothic cathedral and medieval lanes are just over an hour away.</p>
+        </div>
+      </a>
+      <a href="https://www.casafiordalisi.com/post/a-foodie-trip-from-casa-fiordalisi-truffles-wine-cheese-in-the-heart-of-tuscany" target="_blank" rel="noopener" class="todo-card">
+        <img class="todo-card-img" src="https://static.wixstatic.com/media/5f33fc_81f5e048bbe04638923ef84ecfb9d57b~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_81f5e048bbe04638923ef84ecfb9d57b~mv2.jpeg" alt="Tuscan food" loading="lazy" />
+        <div class="todo-card-body">
+          <p class="todo-tag">Food & Wine</p>
+          <h3>Truffles, Wine & Cheese — A Foodie Trail from the House</h3>
+          <p>Pecorino in Pienza, Chianti in the vineyards, truffles in the hills. Tuscany's culinary soul at its best.</p>
+        </div>
+      </a>
+    </div>
+    <div class="todo-more">
+      <a href="https://www.casafiordalisi.com/blog" target="_blank" rel="noopener">Read all our guides on the blog →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AVAILABILITY -->
+<section id="availability">
+  <div class="section-inner">
+    <p class="eyebrow">When Can You Come?</p>
+    <h2>Availability Calendar</h2>
+    <p class="lead">Check our availability below. Green dates are open — get in touch to reserve your stay.</p>
+    <div class="cal-legend">
+      <div class="cal-legend-item"><div class="cal-dot dot-available"></div> Available</div>
+      <div class="cal-legend-item"><div class="cal-dot dot-booked"></div> Booked</div>
+      <div class="cal-legend-item"><div class="cal-dot dot-today"></div> Today</div>
+    </div>
+    <div class="calendars-wrap" id="calendarsWrap"></div>
+    <div class="cal-cta">
+      <h3>Ready to Book Your Tuscan Escape?</h3>
+      <p>Email us with your preferred dates and we'll reply within 24 hours.</p>
+      <a href="mailto:welcomefiordalisi@gmail.com?subject=Booking%20Enquiry%20-%20Casa%20Fiordalisi" class="btn btn-primary">Email to Book</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="section-inner">
+    <p class="eyebrow">Where We Are</p>
+    <h2>In the Heart of Tuscany</h2>
+    <p class="lead">Perfectly positioned between Cortona, Siena, and the Val d'Orcia — with easy motorway access for day trips across the region and into Umbria.</p>
+    <div class="location-grid">
+      <div>
+        <ul class="nearby-places">
+          <li><span class="nearby-name">Castiglion Fiorentino</span><span class="nearby-dist">5 min drive</span></li>
+          <li><span class="nearby-name">Cortona</span><span class="nearby-dist">15 min drive</span></li>
+          <li><span class="nearby-name">Lake Trasimeno</span><span class="nearby-dist">30 min drive</span></li>
+          <li><span class="nearby-name">Montepulciano</span><span class="nearby-dist">35 min drive</span></li>
+          <li><span class="nearby-name">Siena</span><span class="nearby-dist">1 hr drive</span></li>
+          <li><span class="nearby-name">Florence</span><span class="nearby-dist">1.5 hrs drive</span></li>
+          <li><span class="nearby-name">Orvieto</span><span class="nearby-dist">1 hr drive</span></li>
+          <li><span class="nearby-name">Rome</span><span class="nearby-dist">2.5 hrs drive</span></li>
+          <li><span class="nearby-name">Perugia Airport</span><span class="nearby-dist">45 min drive</span></li>
+          <li><span class="nearby-name">Florence Airport</span><span class="nearby-dist">1.5 hrs drive</span></li>
+        </ul>
+        <p style="margin-top:20px; font-size:.83rem; color:rgba(232,224,208,.55); line-height:1.6;">
+          Via della Patalecchia, 121<br>52043 Castiglion Fiorentino AR, Italy
+        </p>
+      </div>
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11563.2!2d11.9194!3d43.3407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132bfb4a7c2e3f3b%3A0x5a3b5e6e7a3b5e6e!2sCastiglion%20Fiorentino%2C%20AR%2C%20Italy!5e0!3m2!1sen!2sgb!4v1710000000000"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Casa Fiordalisi location">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO BOOK -->
+<section id="book">
+  <div class="section-inner">
+    <p class="eyebrow">Direct Booking</p>
+    <h2>How to Reserve Your Stay</h2>
+    <p class="lead">No booking fees, no third-party platforms. Just a direct conversation with us.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><h3>Check Availability</h3><p>Browse the calendar above to find your preferred dates and confirm they're open.</p></div>
+      <div class="step"><div class="step-num">2</div><h3>Send an Enquiry</h3><p>Email us with your dates, number of guests, and any questions you have.</p></div>
+      <div class="step"><div class="step-num">3</div><h3>Receive a Quote</h3><p>We'll reply within 24 hours with pricing, confirmation, and all the details you need.</p></div>
+      <div class="step"><div class="step-num">4</div><h3>Confirm & Enjoy</h3><p>A simple deposit secures your booking. Then start counting down to Tuscany.</p></div>
+    </div>
+    <div class="book-email">
+      <a href="mailto:welcomefiordalisi@gmail.com?subject=Booking%20Enquiry%20-%20Casa%20Fiordalisi">welcomefiordalisi@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Casa Fiordalisi</p>
+      <p>A beautifully renovated Tuscan farmhouse with an infinity pool, four bedrooms, and breathtaking valley views — available for holiday rental in the heart of Tuscany.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#house">The House</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#todo">Things To Do</a></li>
+        <li><a href="#availability">Availability</a></li>
+        <li><a href="#location">Location</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:welcomefiordalisi@gmail.com">welcomefiordalisi@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/casa_fiordalisa" target="_blank" rel="noopener">@casa_fiordalisa on Instagram</a></li>
+        <li style="margin-top:16px; font-size:.8rem; color:rgba(255,255,255,.35); line-height:1.65;">
+          Via della Patalecchia, 121<br>52043 Castiglion Fiorentino AR<br>Italy
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Casa Fiordalisi. All rights reserved.</span>
+    <span>Valdichiana · Tuscany · Italy</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lb-prev" onclick="lbMove(-1)">‹</button>
+  <img id="lbImg" src="" alt="Gallery" />
+  <button class="lb-next" onclick="lbMove(1)">›</button>
+</div>
+
+<script>
+/* NAV */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+
+/* LIGHTBOX */
+const lbImages = [
+  'https://static.wixstatic.com/media/fef05b_29dc9bb49dd2427fa6063fcec7989a3b~mv2.jpg/v1/fill/w_1400,h_1000,al_c,q_85,enc_avif,quality_auto/IMG_8774_edited_edited.jpg',
+  'https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_1400,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg',
+  'https://static.wixstatic.com/media/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png',
+  'https://static.wixstatic.com/media/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg',
+  'https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg',
+  'https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg',
+  'https://static.wixstatic.com/media/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg',
+  'https://static.wixstatic.com/media/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg',
+];
+let lbIdx = 0;
+function openLightbox(i) {
+  lbIdx = i;
+  document.getElementById('lbImg').src = lbImages[i];
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbMove(dir) {
+  lbIdx = (lbIdx + dir + lbImages.length) % lbImages.length;
+  document.getElementById('lbImg').src = lbImages[lbIdx];
+}
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbMove(-1);
+  if (e.key === 'ArrowRight') lbMove(1);
+});
+
+/* CALENDAR
+   Edit BOOKED_RANGES to mark dates as unavailable.
+   Format: { from: 'YYYY-MM-DD', to: 'YYYY-MM-DD' }
+*/
+const BOOKED_RANGES = [
+  { from: '2025-07-05', to: '2025-07-19' },
+  { from: '2025-08-02', to: '2025-08-16' },
+  { from: '2025-08-23', to: '2025-09-06' },
+];
+function isBooked(date) {
+  const d = date.toISOString().slice(0,10);
+  return BOOKED_RANGES.some(r => d >= r.from && d <= r.to);
+}
+function buildCalendar(year, month) {
+  const names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const today = new Date(); today.setHours(0,0,0,0);
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  let dow = new Date(year, month, 1).getDay();
+  dow = dow === 0 ? 6 : dow - 1;
+  let html = `<div class="cal-month"><div class="cal-month-header">${names[month]} ${year}</div>
+    <div class="cal-weekdays"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+    <div class="cal-days">`;
+  for (let i = 0; i < dow; i++) html += `<div class="cal-day"></div>`;
+  for (let d = 1; d <= daysInMonth; d++) {
+    const date = new Date(year, month, d);
+    let cls = 'cal-day';
+    if (date.toDateString() === today.toDateString()) cls += ' today';
+    else if (date < today) cls += ' past';
+    else if (isBooked(date)) cls += ' booked';
+    else cls += ' available';
+    html += `<div class="${cls}">${d}</div>`;
+  }
+  return html + `</div></div>`;
+}
+function renderCalendars() {
+  const wrap = document.getElementById('calendarsWrap');
+  const now = new Date();
+  let html = '';
+  for (let i = 0; i < 6; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth()+i, 1);
+    html += buildCalendar(d.getFullYear(), d.getMonth());
+  }
+  wrap.innerHTML = html;
+}
+renderCalendars();
+</script>
+</body>
+</html>
