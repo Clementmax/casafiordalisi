@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The House | Casa Fiordalisi · Tuscany</title>
+  <meta name="description" content="Explore Casa Fiordalisi room by room — four bedrooms, infinity pool, open-plan living, stone fireplace, games barn and private gardens in Tuscany." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #FAF8F4; --stone: #E8E0D0; --olive: #3D4A2E;
+      --terracotta: #C4724A; --terra-dark: #A35A35;
+      --charcoal: #2A2A2A; --mid: #6B6560;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--charcoal); }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 72px; background: rgba(250,248,244,0.97); backdrop-filter: blur(6px); border-bottom: 1px solid var(--stone); transition: box-shadow .3s; }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+    .nav-logo { text-decoration: none; font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--olive); }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a { font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--olive); text-decoration: none; position: relative; padding-bottom: 3px; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: var(--terracotta); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta { background: var(--terracotta) !important; color: #fff !important; padding: 10px 22px !important; border-radius: 2px; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--terra-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--olive); }
+
+    /* ── PAGE HERO ── */
+    .page-hero { padding-top: 72px; position: relative; height: 55vh; min-height: 360px; display: flex; align-items: flex-end; overflow: hidden; }
+    .page-hero-bg { position: absolute; inset: 0; background: url('https://static.wixstatic.com/media/fef05b_29dc9bb49dd2427fa6063fcec7989a3b~mv2.jpg/v1/fill/w_1920,h_800,al_c,q_85,enc_avif,quality_auto/IMG_8774_edited_edited.jpg') center/cover no-repeat; }
+    .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.08) 0%, rgba(20,30,15,.68) 100%); }
+    .page-hero-content { position: relative; padding: 0 48px 52px; color: #fff; }
+    .page-eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; opacity: .75; margin-bottom: 10px; }
+    .page-hero-content h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.15; text-shadow: 0 2px 20px rgba(0,0,0,.3); }
+    .page-hero-content p { margin-top: 12px; font-size: 1rem; font-weight: 300; opacity: .85; max-width: 560px; line-height: 1.7; }
+
+    /* ── STATS BAR ── */
+    .stats-bar { background: var(--olive); }
+    .stats-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(6, 1fr); }
+    .stat { padding: 22px 16px; text-align: center; border-right: 1px solid rgba(255,255,255,.1); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #fff; font-weight: 700; line-height: 1; }
+    .stat-label { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-top: 5px; }
+
+    /* ── JUMP NAV ── */
+    .jump-nav { background: #fff; border-bottom: 1px solid var(--stone); position: sticky; top: 72px; z-index: 90; overflow-x: auto; }
+    .jump-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; padding: 0 48px; }
+    .jump-nav a { display: block; padding: 14px 18px; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
+    .jump-nav a:hover { color: var(--olive); border-color: var(--terracotta); }
+
+    /* ── ROOM SECTIONS ── */
+    .room { padding: 80px 48px; }
+    .room.alt { background: var(--stone); }
+    .room-inner { max-width: 1100px; margin: 0 auto; }
+    .room-header { margin-bottom: 36px; display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; }
+    .room-header-text { flex: 1; min-width: 280px; }
+    .room-eyebrow { font-size: .65rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 8px; }
+    .room h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 2.2vw, 2rem); font-weight: 700; color: var(--olive); margin-bottom: 12px; line-height: 1.2; }
+    .room-desc { font-size: .95rem; line-height: 1.85; color: var(--mid); }
+    .room-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .badge { display: inline-block; padding: 5px 12px; background: rgba(61,74,46,.08); border: 1px solid rgba(61,74,46,.15); border-radius: 2px; font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--olive); }
+
+    /* ── PHOTO GRIDS ── */
+    .grid-1 { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+    .grid-feature { display: grid; grid-template-columns: 1.55fr 1fr; gap: 8px; }
+    .grid-feature-sub { display: grid; grid-template-rows: 1fr 1fr; gap: 8px; }
+
+    .photo { position: relative; overflow: hidden; border-radius: 2px; cursor: pointer; background: var(--stone); }
+    .photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s ease; }
+    .photo:hover img { transform: scale(1.04); }
+    .photo-cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px 14px 12px; background: linear-gradient(transparent, rgba(0,0,0,.52)); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; opacity: 0; transition: opacity .25s; }
+    .photo:hover .photo-cap { opacity: 1; }
+
+    /* fixed heights */
+    .grid-1  .photo { height: 520px; }
+    .grid-2  .photo { height: 380px; }
+    .grid-3  .photo { height: 300px; }
+    .grid-4  .photo { height: 260px; }
+    .grid-feature > .photo { height: 480px; }
+    .grid-feature-sub .photo { height: 236px; }
+
+    /* portrait overrides */
+    .portrait { aspect-ratio: 3/4; height: auto !important; }
+
+    /* ── DIVIDER ── */
+    .room-divider { max-width: 1100px; margin: 0 auto; height: 1px; background: var(--stone); }
+
+    /* ── CTA STRIP ── */
+    .cta-strip { background: var(--olive); padding: 72px 48px; text-align: center; color: #fff; }
+    .cta-strip h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem); margin-bottom: 12px; }
+    .cta-strip p { opacity: .72; margin-bottom: 32px; font-size: .95rem; line-height: 1.7; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .btn { display: inline-block; padding: 14px 34px; font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background .2s, transform .15s; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--terracotta); color: #fff; }
+    .btn-primary:hover { background: var(--terra-dark); }
+    .btn-outline { border: 1px solid rgba(255,255,255,.5); color: #fff; margin-left: 12px; }
+    .btn-outline:hover { background: rgba(255,255,255,.1); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--charcoal); color: rgba(255,255,255,.55); padding: 56px 48px 36px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #fff; margin-bottom: 12px; }
+    .footer-brand p { font-size: .875rem; line-height: 1.75; }
+    footer h4 { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #fff; margin-bottom: 14px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 10px; }
+    footer a { color: rgba(255,255,255,.55); text-decoration: none; font-size: .875rem; }
+    footer a:hover { color: var(--terracotta); }
+    .footer-bottom { max-width: 1100px; margin: 40px auto 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 22px; display: flex; justify-content: space-between; font-size: .75rem; }
+
+    /* ── LIGHTBOX ── */
+    .lb { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.94); align-items: center; justify-content: center; }
+    .lb.open { display: flex; }
+    .lb img { max-width: 90vw; max-height: 86vh; object-fit: contain; display: block; }
+    .lb-close { position: absolute; top: 18px; right: 26px; color: #fff; font-size: 2.4rem; cursor: pointer; background: none; border: none; line-height: 1; }
+    .lb-prev, .lb-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,.1); border: none; color: #fff; font-size: 1.8rem; padding: 12px 18px; cursor: pointer; transition: background .2s; }
+    .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,.22); }
+    .lb-prev { left: 12px; } .lb-next { right: 12px; }
+    .lb-cap { position: absolute; bottom: 20px; left: 0; right: 0; text-align: center; color: rgba(255,255,255,.65); font-size: .78rem; letter-spacing: .06em; padding: 0 60px; }
+    .lb-counter { position: absolute; top: 22px; left: 28px; color: rgba(255,255,255,.5); font-size: .75rem; letter-spacing: .1em; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .stats-inner { grid-template-columns: repeat(3, 1fr); }
+      .stat:nth-child(3) { border-right: none; }
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-feature { grid-template-columns: 1fr; }
+      .grid-feature > .photo { height: 300px; }
+      .grid-feature-sub { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .grid-feature-sub .photo { height: 200px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; flex-direction: column; gap: 20px; position: absolute; top: 72px; left: 0; right: 0; background: var(--cream); padding: 28px 24px; border-bottom: 1px solid var(--stone); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .page-hero-content { padding: 0 20px 36px; }
+      .jump-nav-inner { padding: 0 8px; }
+      .room { padding: 52px 20px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-2 .photo { height: 260px; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-3 .photo { height: 260px; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-4 .photo { height: 180px; }
+      .grid-1 .photo { height: 300px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3) { border-right: 1px solid rgba(255,255,255,.1); }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 10px; }
+      .cta-strip { padding: 52px 20px; }
+      .btn-outline { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">Casa Fiordalisi</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="the-house.html" class="active">The House</a></li>
+    <li><a href="things-to-do.html">Things To Do</a></li>
+    <li><a href="index.html#availability">Availability</a></li>
+    <li><a href="index.html#location">Location</a></li>
+    <li><a href="mailto:welcomefiordalisi@gmail.com" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">Casa Fiordalisi · Tuscany</p>
+    <h1>The House</h1>
+    <p>A beautifully renovated Tuscan farmhouse — explore every room, from the infinity pool to the mezzanine bunkroom.</p>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Bedrooms</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Bathrooms</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Guests</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Pool</div></div>
+    <div class="stat"><div class="stat-num">5'</div><div class="stat-label">To Town</div></div>
+    <div class="stat"><div class="stat-num">15'</div><div class="stat-label">To Cortona</div></div>
+  </div>
+</div>
+
+<!-- JUMP NAV -->
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <a href="#pool">Pool & Gardens</a>
+    <a href="#living">Living Room</a>
+    <a href="#dining">Dining & Kitchen</a>
+    <a href="#entrance">Entrance Hall</a>
+    <a href="#master">Master Bedroom</a>
+    <a href="#double">Double Bedroom</a>
+    <a href="#loggia">Loggia Bedroom</a>
+    <a href="#bunk">Bunkbed Room</a>
+    <a href="#extras">Extras</a>
+  </div>
+</div>
+
+<!-- POOL & GARDENS -->
+<div class="room" id="pool">
+  <div class="room-inner">
+    <div class="room-header">
+      <div class="room-header-text">
+        <p class="room-eyebrow">Outdoors</p>
+        <h2>Pool & Gardens</h2>
+        <p class="room-desc">The centrepiece of Casa Fiordalisi is its stunning infinity pool, set within extensive private gardens with panoramic views across the Valdichiana valley towards Cortona. Sun loungers, a stone terrace, and total privacy make this the ideal place to spend long Tuscan days and warm evenings.</p>
+        <div class="room-badges"><span class="badge">Infinity Pool</span><span class="badge">Sun Loungers</span><span class="badge">Private Gardens</span><span class="badge">Valley Views</span></div>
+      </div>
+    </div>
+    <div class="grid-feature">
+      <div class="photo" onclick="lb('pool',0)">
+        <img src="https://static.wixstatic.com/media/fef05b_29dc9bb49dd2427fa6063fcec7989a3b~mv2.jpg/v1/fill/w_980,h_700,al_c,q_85,enc_avif,quality_auto/IMG_8774_edited_edited.jpg" alt="Pool with Cortona in the background" loading="lazy" />
+        <div class="photo-cap">Pool with Cortona in the background</div>
+      </div>
+      <div class="grid-feature-sub">
+        <div class="photo" onclick="lb('pool',1)">
+          <img src="https://static.wixstatic.com/media/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png/v1/fill/w_700,h_530,al_c,q_85,enc_avif,quality_auto/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png" alt="Infinity pool at sunset" loading="lazy" />
+          <div class="photo-cap">Infinity pool at sunset</div>
+        </div>
+        <div class="photo" onclick="lb('pool',2)">
+          <img src="https://static.wixstatic.com/media/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg/v1/fill/w_700,h_530,al_c,q_85,enc_avif,quality_auto/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg" alt="Pool from the garden" loading="lazy" />
+          <div class="photo-cap">Pool from the garden</div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:8px;">
+      <div class="photo" onclick="lb('pool',3)">
+        <img src="https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_700,h_470,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg" alt="Pool at dawn" loading="lazy" />
+        <div class="photo-cap">Pool at dawn — valley in mist</div>
+      </div>
+      <div class="photo" onclick="lb('pool',4)">
+        <img src="https://static.wixstatic.com/media/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg/v1/fill/w_700,h_470,al_c,q_85,enc_avif,quality_auto/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg" alt="Garden and terrace" loading="lazy" />
+        <div class="photo-cap">Garden and terrace</div>
+      </div>
+      <div class="photo" onclick="lb('pool',5)">
+        <img src="https://static.wixstatic.com/media/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png/v1/fill/w_700,h_470,al_c,q_85,enc_avif,quality_auto/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png" alt="Poolside lounging" loading="lazy" />
+        <div class="photo-cap">Poolside lounging</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVING ROOM -->
+<div class="room alt" id="living">
+  <div class="room-inner">
+    <div class="room-header">
+      <div class="room-header-text">
+        <p class="room-eyebrow">Ground Floor</p>
+        <h2>Living Room</h2>
+        <p class="room-desc">At the heart of the house is a generous open-plan living room with original terracotta floors, exposed timber beams, and a grand stone fireplace with wood-burning stove. Comfortable sofas, antique furniture, and arched French doors opening to the garden create a space that is both characterful and deeply relaxed.</p>
+        <div class="room-badges"><span class="badge">Stone Fireplace</span><span class="badge">Wood Burner</span><span class="badge">Exposed Beams</span><span class="badge">Terracotta Floors</span><span class="badge">Garden Doors</span></div>
+      </div>
+    </div>
+    <div class="grid-feature">
+      <div class="photo" onclick="lb('living',0)">
+        <img src="https://static.wixstatic.com/media/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg/v1/fill/w_980,h_700,al_c,q_85,enc_avif,quality_auto/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg" alt="Open-plan living room" loading="lazy" />
+        <div class="photo-cap">Open-plan living room</div>
+      </div>
+      <div class="grid-feature-sub">
+        <div class="photo" onclick="lb('living',1)">
+          <img src="https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_700,h_530,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg" alt="Sitting area and fireplace" loading="lazy" />
+          <div class="photo-cap">Sitting area and fireplace</div>
+        </div>
+        <div class="photo" onclick="lb('living',2)">
+          <img src="https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_700,h_530,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg" alt="Grand stone fireplace" loading="lazy" />
+          <div class="photo-cap">Grand stone fireplace</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DINING & KITCHEN -->
+<div class="room" id="dining">
+  <div class="room-inner">
+    <div class="room-header">
+      <div class="room-header-text">
+        <p class="room-eyebrow">Ground Floor</p>
+        <h2>Dining Room & Kitchen</h2>
+        <p class="room-desc">The dining area flows naturally from the living room, centred around a large table perfect for long Italian meals together. The fully equipped kitchen adjoins the space, making it easy to cook and socialise at the same time. An outdoor terrace just beyond provides the ideal setting for al fresco dinners under the Tuscan sky.</p>
+        <div class="room-badges"><span class="badge">Fully Equipped Kitchen</span><span class="badge">Dining for 8</span><span class="badge">Outdoor Terrace</span></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="photo" onclick="lb('dining',0)">
+        <img src="https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg" alt="Dining room" loading="lazy" />
+        <div class="photo-cap">Dining room</div>
+      </div>
+      <div class="photo" onclick="lb('dining',1)">
+        <img src="https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg" alt="Dining from the lounge" loading="lazy" />
+        <div class="photo-cap">Dining area from the lounge</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ENTRANCE HALL -->
+<div class="room alt" id="entrance">
+  <div class="room-inner">
+    <div class="room-header">
+      <div class="room-header-text">
+        <p class="room-eyebrow">Ground Floor</p>
+        <h2>Entrance Hall</h2>
+        <p class="room-desc">The entrance hall sets the tone for the house — a beautiful antique burr walnut chest, original painting, and fresh flowers create an immediate sense of warmth and character. A proper Tuscan welcome.</p>
+        <div class="room-badges"><span class="badge">Antique Furnishings</span><span class="badge">Original Art</span></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="photo" onclick="lb('entrance',0)">
+        <img src="images/rooms/entrance.jpg" alt="Entrance hall" loading="lazy" />
+        <div class="photo-cap">Entrance hall</div>
+      </div>
+      <div class="photo" onclick="lb('entrance',1)">
+        <img src="https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg" alt="House exterior" loading="lazy" />
+        <div class="photo-cap">Casa Fiordalisi exterior</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MASTER BEDROOM -->
+<div class="room" id="master">
+  <div class="room-inner">
+    <div class="room-header">
+      <div class="room-header-text">
+        <p class="room-eyebrow">Upstairs · Bedroom 1</p>
+        <h2>Master Bedroom with Terrace</h2>
+        <p class="room-desc">The master bedroom is a generous, light-filled room upstairs with a beautiful wrought-iron double bed, exposed beams, terracotta floors, and antique Tuscan furnishings. French doors lead directly onto a private terrace — the perfect spot for a morning coffee with views over the garden. This room has its own en-suite bathroom.</p>
+        <div class="room-badges"><span class="badge">Double Bed</span><span class="badge">Private Terrace</span><span class="badge">En-suite Bathroom</span><span class="badge">Garden Views</span></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="photo" onclick="lb('master',0)">
+        <img src="images/rooms/master-1.jpg" alt="Master bedroom with terrace" loading="lazy" />
+        <div class="photo-cap">Master bedroom</div>
+      </div>
+      <div class="photo" onclick="lb('master',1)">
+        <img src="images/rooms/master-2.jpg" alt="Master bedroom detail — valley window" loading="lazy" />
+        <div class="photo-cap">Antique armoire and valley window</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOUBLE BEDROOM -->
+<div class="room alt" id="double">
+  <div class="room-inner">
+    <div class="room-header">
+      <div class="room-header-text">
+        <p class="room-eyebrow">Upstairs · Bedroom 2</p>
+        <h2>Double Bedroom</h2>
+        <p class="room-desc">A beautiful double bedroom featuring an exposed stone wall, traditional rattan-headboard bed, terracotta floors, and antique wooden furniture. The room is bright and airy with countryside views, and shares the upstairs bathroom with the loggia bedroom.</p>
+        <div class="room-badges"><span class="badge">Double Bed</span><span class="badge">Stone Wall</span><span class="badge">Shared Upstairs Bathroom</span></div>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="photo" onclick="lb('double',0)">
+        <img src="images/rooms/double-1.jpg" alt="Double bedroom" loading="lazy" />
+        <div class="photo-cap">Double bedroom</div>
+      </div>
+      <div class="photo" onclick="lb('double',1)">
+        <img src="images/rooms/double-2.jpg" alt="Double bedroom — second angle" loading="lazy" />
+        <div class="photo-cap">Second angle</div>
+      </div>
+      <div class="photo" onclick="lb('double',2)">
+        <img src="images/rooms/double-3.jpg" alt="Double bedroom — view" loading="lazy" />
+        <div class="photo-cap">Window with countryside view</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOUBLE BEDROOM WITH LOGGIA -->
+<div class="room" id="loggia">
+  <div class="room-inner">
+    <div class="room-header">
+      <div class="room-header-text">
+        <p class="room-eyebrow">Upstairs · Bedroom 3</p>
+        <h2>Double Bedroom with Loggia</h2>
+        <p class="room-desc">A charming double room with beautiful floral linen, a wrought-iron bed, and large doors leading onto a loggia — a covered outdoor space perfect for sitting out in the shade. Light, airy and full of character, this room shares the upstairs bathroom.</p>
+        <div class="room-badges"><span class="badge">Double Bed</span><span class="badge">Private Loggia</span><span class="badge">Shared Upstairs Bathroom</span></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="photo" onclick="lb('loggia',0)">
+        <img src="images/rooms/loggia-1.jpg" alt="Double bedroom with loggia" loading="lazy" />
+        <div class="photo-cap">Double bedroom with loggia doors</div>
+      </div>
+      <div class="photo" onclick="lb('loggia',1)">
+        <img src="images/rooms/loggia-2.jpg" alt="Double bedroom with loggia — second angle" loading="lazy" />
+        <div class="photo-cap">Second angle</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUNKBED ROOM -->
+<div class="room alt" id="bunk">
+  <div class="room-inner">
+    <div class="room-header">
+      <div class="room-header-text">
+        <p class="room-eyebrow">Upstairs · Bedroom 4</p>
+        <h2>Bedroom with Bunkbeds & Mezzanine</h2>
+        <p class="room-desc">A wonderfully characterful room ideal for children or younger guests. Bunkbeds sit beneath an exposed stone wall and terracotta-tiled ceiling, with a feature wrought-iron staircase leading up to a mezzanine level — a private sleeping platform that kids absolutely love. A travel cot is also available. Shares the upstairs bathroom.</p>
+        <div class="room-badges"><span class="badge">Bunkbeds</span><span class="badge">Mezzanine Level</span><span class="badge">Travel Cot Available</span><span class="badge">Shared Upstairs Bathroom</span></div>
+      </div>
+    </div>
+    <div class="grid-4">
+      <div class="photo" onclick="lb('bunk',0)">
+        <img src="images/rooms/bunk-1.jpg" alt="Bunkbed room — mezzanine staircase" loading="lazy" />
+        <div class="photo-cap">Mezzanine staircase</div>
+      </div>
+      <div class="photo" onclick="lb('bunk',1)">
+        <img src="images/rooms/bunk-2.jpg" alt="Bunkbeds and mezzanine above" loading="lazy" />
+        <div class="photo-cap">Bunkbeds with mezzanine above</div>
+      </div>
+      <div class="photo" onclick="lb('bunk',2)">
+        <img src="images/rooms/bunk-3.jpg" alt="Bunkbed room — third angle" loading="lazy" />
+        <div class="photo-cap">Room with stone wall</div>
+      </div>
+      <div class="photo" onclick="lb('bunk',3)">
+        <img src="images/rooms/bunk-4.jpg" alt="Bunkbed room — fourth angle" loading="lazy" />
+        <div class="photo-cap">View to the garden</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXTRAS: WC + GAMES BARN -->
+<div class="room" id="extras">
+  <div class="room-inner">
+    <div class="room-header">
+      <div class="room-header-text">
+        <p class="room-eyebrow">Additional Spaces</p>
+        <h2>Bathrooms & Extras</h2>
+        <p class="room-desc">Casa Fiordalisi has three bathrooms in total: an en-suite for the master bedroom, a shared upstairs bathroom for the other three bedrooms, and a ground floor WC. The property also includes a dedicated outdoor games barn with table tennis — a firm favourite with families.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="photo" onclick="lb('extras',0)">
+        <img src="images/rooms/bathroom-wc.jpg" alt="Ground floor WC" loading="lazy" style="object-position: center top;" />
+        <div class="photo-cap">Ground floor WC</div>
+      </div>
+      <div class="photo" onclick="lb('extras',1)">
+        <img src="images/rooms/games-barn.jpg" alt="Outdoor games barn with table tennis" loading="lazy" />
+        <div class="photo-cap">Outdoor games barn — table tennis</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <h2>Seen Enough to Fall in Love?</h2>
+  <p>Check availability and get in touch — bookings taken directly by email, no fees, no middlemen.</p>
+  <a href="index.html#availability" class="btn btn-primary">Check Availability</a>
+  <a href="mailto:welcomefiordalisi@gmail.com?subject=Booking%20Enquiry%20-%20Casa%20Fiordalisi" class="btn btn-outline">Email Us</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Casa Fiordalisi</p>
+      <p>A beautifully renovated Tuscan farmhouse with an infinity pool, four bedrooms, and breathtaking valley views — available for holiday rental in the heart of Tuscany.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="the-house.html">The House</a></li>
+        <li><a href="things-to-do.html">Things To Do</a></li>
+        <li><a href="index.html#availability">Availability</a></li>
+        <li><a href="index.html#location">Location</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:welcomefiordalisi@gmail.com">welcomefiordalisi@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/casa_fiordalisa" target="_blank" rel="noopener">@casa_fiordalisa on Instagram</a></li>
+        <li style="margin-top:14px;font-size:.8rem;color:rgba(255,255,255,.35);line-height:1.65;">Via della Patalecchia, 121<br>52043 Castiglion Fiorentino AR<br>Italy</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Casa Fiordalisi. All rights reserved.</span>
+    <span>Valdichiana · Tuscany · Italy</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lightbox">
+  <button class="lb-close" onclick="closeLb()">×</button>
+  <div class="lb-counter" id="lbCounter"></div>
+  <button class="lb-prev" onclick="lbMove(-1)">‹</button>
+  <img id="lbImg" src="" alt="" />
+  <div class="lb-cap" id="lbCap"></div>
+  <button class="lb-next" onclick="lbMove(1)">›</button>
+</div>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+
+/* per-section lightbox sets */
+const SETS = {
+  pool: [
+    { src: 'https://static.wixstatic.com/media/fef05b_29dc9bb49dd2427fa6063fcec7989a3b~mv2.jpg/v1/fill/w_1600,h_1100,al_c,q_85,enc_avif,quality_auto/IMG_8774_edited_edited.jpg', cap: 'Pool with Cortona in the background' },
+    { src: 'https://static.wixstatic.com/media/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png', cap: 'Infinity pool at sunset' },
+    { src: 'https://static.wixstatic.com/media/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg', cap: 'Pool from the garden' },
+    { src: 'https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_1600,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg', cap: 'Pool at dawn — valley in mist' },
+    { src: 'https://static.wixstatic.com/media/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg', cap: 'Garden and terrace' },
+    { src: 'https://static.wixstatic.com/media/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png', cap: 'Poolside lounging' },
+  ],
+  living: [
+    { src: 'https://static.wixstatic.com/media/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg/v1/fill/w_1600,h_1100,al_c,q_85,enc_avif,quality_auto/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg', cap: 'Open-plan living room' },
+    { src: 'https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg', cap: 'Sitting area and fireplace' },
+    { src: 'https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg', cap: 'Grand stone fireplace' },
+  ],
+  dining: [
+    { src: 'https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg', cap: 'Dining room' },
+    { src: 'https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg', cap: 'Dining area from the lounge' },
+  ],
+  entrance: [
+    { src: 'images/rooms/entrance.jpg', cap: 'Entrance hall — antique burr walnut chest' },
+    { src: 'https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_1600,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg', cap: 'Casa Fiordalisi exterior' },
+  ],
+  master: [
+    { src: 'images/rooms/master-1.jpg', cap: 'Master bedroom with terrace' },
+    { src: 'images/rooms/master-2.jpg', cap: 'Antique armoire and valley window' },
+  ],
+  double: [
+    { src: 'images/rooms/double-1.jpg', cap: 'Double bedroom' },
+    { src: 'images/rooms/double-2.jpg', cap: 'Second angle' },
+    { src: 'images/rooms/double-3.jpg', cap: 'Window with countryside view' },
+  ],
+  loggia: [
+    { src: 'images/rooms/loggia-1.jpg', cap: 'Double bedroom with loggia doors' },
+    { src: 'images/rooms/loggia-2.jpg', cap: 'Second angle' },
+  ],
+  bunk: [
+    { src: 'images/rooms/bunk-1.jpg', cap: 'Mezzanine staircase and bunkbeds' },
+    { src: 'images/rooms/bunk-2.jpg', cap: 'Bunkbeds with mezzanine above' },
+    { src: 'images/rooms/bunk-3.jpg', cap: 'Room with exposed stone wall' },
+    { src: 'images/rooms/bunk-4.jpg', cap: 'View to the garden' },
+  ],
+  extras: [
+    { src: 'images/rooms/bathroom-wc.jpg', cap: 'Ground floor WC' },
+    { src: 'images/rooms/games-barn.jpg', cap: 'Outdoor games barn — table tennis' },
+  ],
+};
+
+let activeSet = [], activeIdx = 0;
+
+function lb(set, i) {
+  activeSet = SETS[set];
+  activeIdx = i;
+  showLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function showLb() {
+  const item = activeSet[activeIdx];
+  document.getElementById('lbImg').src = item.src;
+  document.getElementById('lbCap').textContent = item.cap;
+  document.getElementById('lbCounter').textContent = (activeIdx + 1) + ' / ' + activeSet.length;
+}
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbMove(dir) {
+  activeIdx = (activeIdx + dir + activeSet.length) % activeSet.length;
+  showLb();
+}
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLb(); });
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') lbMove(-1);
+  if (e.key === 'ArrowRight') lbMove(1);
+});
+</script>
+</body>
+</html>
