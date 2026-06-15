@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <!-- Cornflower / Fiordalisi - 8 petals around a centre -->
+  <g transform="translate(40,40)">
+    <!-- Petals - olive green outer, terracotta tips -->
+    <ellipse rx="7" ry="18" fill="#3D4A2E" opacity="0.9" transform="rotate(0) translate(0,-14)"/>
+    <ellipse rx="7" ry="18" fill="#3D4A2E" opacity="0.9" transform="rotate(45) translate(0,-14)"/>
+    <ellipse rx="7" ry="18" fill="#3D4A2E" opacity="0.9" transform="rotate(90) translate(0,-14)"/>
+    <ellipse rx="7" ry="18" fill="#3D4A2E" opacity="0.9" transform="rotate(135) translate(0,-14)"/>
+    <ellipse rx="7" ry="18" fill="#3D4A2E" opacity="0.9" transform="rotate(180) translate(0,-14)"/>
+    <ellipse rx="7" ry="18" fill="#3D4A2E" opacity="0.9" transform="rotate(225) translate(0,-14)"/>
+    <ellipse rx="7" ry="18" fill="#3D4A2E" opacity="0.9" transform="rotate(270) translate(0,-14)"/>
+    <ellipse rx="7" ry="18" fill="#3D4A2E" opacity="0.9" transform="rotate(315) translate(0,-14)"/>
+    <!-- Petal tips terracotta -->
+    <ellipse rx="4" ry="8" fill="#C4724A" opacity="0.85" transform="rotate(0) translate(0,-22)"/>
+    <ellipse rx="4" ry="8" fill="#C4724A" opacity="0.85" transform="rotate(45) translate(0,-22)"/>
+    <ellipse rx="4" ry="8" fill="#C4724A" opacity="0.85" transform="rotate(90) translate(0,-22)"/>
+    <ellipse rx="4" ry="8" fill="#C4724A" opacity="0.85" transform="rotate(135) translate(0,-22)"/>
+    <ellipse rx="4" ry="8" fill="#C4724A" opacity="0.85" transform="rotate(180) translate(0,-22)"/>
+    <ellipse rx="4" ry="8" fill="#C4724A" opacity="0.85" transform="rotate(225) translate(0,-22)"/>
+    <ellipse rx="4" ry="8" fill="#C4724A" opacity="0.85" transform="rotate(270) translate(0,-22)"/>
+    <ellipse rx="4" ry="8" fill="#C4724A" opacity="0.85" transform="rotate(315) translate(0,-22)"/>
+    <!-- Centre -->
+    <circle r="7" fill="#FAF8F4"/>
+    <circle r="5" fill="#C4724A"/>
+    <circle r="3" fill="#3D4A2E"/>
+  </g>
+</svg>

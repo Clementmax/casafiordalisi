@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The House | Casa Fiordalisi · Tuscany</title>
   <meta name="description" content="Explore Casa Fiordalisi room by room — four bedrooms, infinity pool, open-plan living, stone fireplace, games barn and private gardens in Tuscany." />
+  <link rel="icon" type="image/svg+xml" href="logo.svg"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -168,7 +169,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a class="nav-logo" href="index.html">Casa Fiordalisi</a>
+  <a class="nav-logo" href="index.html" style="display:flex;align-items:center;gap:10px;"><img src="logo.svg" alt="Casa Fiordalisi" style="height:44px;width:44px;"/><span>Casa Fiordalisi</span></a>
   <ul class="nav-links" id="navLinks">
     <li><a href="the-house.html" class="active">The House</a></li>
     <li><a href="things-to-do.html">Things To Do</a></li>
@@ -210,7 +211,6 @@
     <a href="#pool">Pool & Gardens</a>
     <a href="#living">Living Room</a>
     <a href="#dining">Dining & Kitchen</a>
-    <a href="#entrance">Entrance Hall</a>
     <a href="#master">Master Bedroom</a>
     <a href="#double">Double Bedroom</a>
     <a href="#loggia">Loggia Bedroom</a>
@@ -312,30 +312,6 @@
       <div class="photo" onclick="lb('dining',1)">
         <img src="https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg" alt="Dining from the lounge" loading="lazy" />
         <div class="photo-cap">Dining area from the lounge</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ENTRANCE HALL -->
-<div class="room alt" id="entrance">
-  <div class="room-inner">
-    <div class="room-header">
-      <div class="room-header-text">
-        <p class="room-eyebrow">Ground Floor</p>
-        <h2>Entrance Hall</h2>
-        <p class="room-desc">The entrance hall sets the tone for the house — a beautiful antique burr walnut chest, original painting, and fresh flowers create an immediate sense of warmth and character. A proper Tuscan welcome.</p>
-        <div class="room-badges"><span class="badge">Antique Furnishings</span><span class="badge">Original Art</span></div>
-      </div>
-    </div>
-    <div class="grid-2">
-      <div class="photo" onclick="lb('entrance',0)">
-        <img src="images/rooms/entrance.jpg" alt="Entrance hall" loading="lazy" />
-        <div class="photo-cap">Entrance hall</div>
-      </div>
-      <div class="photo" onclick="lb('entrance',1)">
-        <img src="https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_760,h_570,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg" alt="House exterior" loading="lazy" />
-        <div class="photo-cap">Casa Fiordalisi exterior</div>
       </div>
     </div>
   </div>
@@ -449,7 +425,7 @@
   </div>
 </div>
 
-<!-- EXTRAS: WC + GAMES BARN -->
+<!-- EXTRAS: GAMES BARN -->
 <div class="room" id="extras">
   <div class="room-inner">
     <div class="room-header">
@@ -459,12 +435,8 @@
         <p class="room-desc">Casa Fiordalisi has three bathrooms in total: an en-suite for the master bedroom, a shared upstairs bathroom for the other three bedrooms, and a ground floor WC. The property also includes a dedicated outdoor games barn with table tennis — a firm favourite with families.</p>
       </div>
     </div>
-    <div class="grid-2">
-      <div class="photo" onclick="lb('extras',0)">
-        <img src="images/rooms/bathroom-wc.jpg" alt="Ground floor WC" loading="lazy" style="object-position: center top;" />
-        <div class="photo-cap">Ground floor WC</div>
-      </div>
-      <div class="photo" onclick="lb('extras',1)">
+    <div class="grid-1">
+      <div class="photo" onclick="lb('extras',0)" style="max-width:640px;">
         <img src="images/rooms/games-barn.jpg" alt="Outdoor games barn with table tennis" loading="lazy" />
         <div class="photo-cap">Outdoor games barn — table tennis</div>
       </div>
@@ -547,10 +519,7 @@ const SETS = {
     { src: 'https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg', cap: 'Dining room' },
     { src: 'https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_1400,h_1050,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg', cap: 'Dining area from the lounge' },
   ],
-  entrance: [
-    { src: 'images/rooms/entrance.jpg', cap: 'Entrance hall — antique burr walnut chest' },
-    { src: 'https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_1600,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg', cap: 'Casa Fiordalisi exterior' },
-  ],
+  entrance: [],
   master: [
     { src: 'images/rooms/master-1.jpg', cap: 'Master bedroom with terrace' },
     { src: 'images/rooms/master-2.jpg', cap: 'Antique armoire and valley window' },
@@ -571,7 +540,6 @@ const SETS = {
     { src: 'images/rooms/bunk-4.jpg', cap: 'View to the garden' },
   ],
   extras: [
-    { src: 'images/rooms/bathroom-wc.jpg', cap: 'Ground floor WC' },
     { src: 'images/rooms/games-barn.jpg', cap: 'Outdoor games barn — table tennis' },
   ],
 };

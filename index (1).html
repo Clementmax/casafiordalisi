@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Casa Fiordalisi | Tuscany Holiday Rental</title>
   <meta name="description" content="Discover Casa Fiordalisi, a charming 4-bedroom holiday rental in the heart of Tuscany. Private pool, scenic views, and an authentic Italian escape." />
+  <link rel="icon" type="image/svg+xml" href="logo.svg"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,6 +31,7 @@
     }
     nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
     .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo { display:flex; align-items:center; gap:0; }
     .nav-logo span { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--olive); letter-spacing: .02em; }
     .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
     .nav-links a { font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--olive); text-decoration: none; position: relative; padding-bottom: 3px; }
@@ -206,10 +208,9 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a class="nav-logo" href="#"><span>Casa Fiordalisi</span></a>
+  <a class="nav-logo" href="#"><img src="logo.svg" alt="Casa Fiordalisi" style="height:44px;width:44px;margin-right:10px;vertical-align:middle;"/><span>Casa Fiordalisi</span></a>
   <ul class="nav-links" id="navLinks">
     <li><a href="the-house.html">The House</a></li>
-    <li><a href="#gallery">Gallery</a></li>
     <li><a href="things-to-do.html">Things To Do</a></li>
     <li><a href="#availability">Availability</a></li>
     <li><a href="#location">Location</a></li>
@@ -265,9 +266,6 @@
     <h2>Everything You Need</h2>
     <p class="lead">A complete Tuscan retreat — nothing left to chance.</p>
     <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon">🏠</div><h3>4 Bedrooms</h3><p>Spacious, light-filled rooms with traditional Tuscan furnishings and all modern comforts for families and groups.</p></div>
-      <div class="feature-card"><div class="feature-icon">🏊</div><h3>Infinity Pool</h3><p>A beautiful pool with panoramic views across the valley — perfect for long, lazy Tuscan afternoons.</p></div>
-      <div class="feature-card"><div class="feature-icon">🔥</div><h3>Stone Fireplace</h3><p>A grand traditional fireplace and wood-burning stove at the heart of the open-plan living room.</p></div>
       <div class="feature-card"><div class="feature-icon">🌿</div><h3>Private Gardens</h3><p>Extensive mature gardens with a shaded terrace, sun loungers, and complete privacy surrounded by countryside.</p></div>
       <div class="feature-card"><div class="feature-icon">🍽️</div><h3>Terrace Dining</h3><p>A fully equipped kitchen and outdoor dining terrace made for long Italian evenings under the Tuscan sky.</p></div>
       <div class="feature-card"><div class="feature-icon">📍</div><h3>Perfect Location</h3><p>Close to Cortona, Montepulciano, Siena, and the A1 — the ideal base for day trips across Tuscany and Umbria.</p></div>
@@ -439,8 +437,7 @@
       <h4>Navigate</h4>
       <ul>
         <li><a href="the-house.html">The House</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="things-to-do.html">Things To Do</a></li>
+            <li><a href="things-to-do.html">Things To Do</a></li>
         <li><a href="#availability">Availability</a></li>
         <li><a href="#location">Location</a></li>
       </ul>
