@@ -508,19 +508,37 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') lbMove(1);
 });
 
-/* CALENDAR
-   Edit BOOKED_RANGES to mark dates as unavailable.
-   Format: { from: 'YYYY-MM-DD', to: 'YYYY-MM-DD' }
-*/
-const BOOKED_RANGES = [
-  { from: '2025-07-05', to: '2025-07-19' },
-  { from: '2025-08-02', to: '2025-08-16' },
-  { from: '2025-08-23', to: '2025-09-06' },
-];
+/* ── CALENDAR — powered by Supabase ── */
+const SUPABASE_URL  = 'https://raqpnkczcrifpykrqheq.supabase.co';
+const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhcXBua2N6Y3JpZnB5a3JxaGVxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE1MzI5OTAsImV4cCI6MjA5NzEwODk5MH0.T8Eq3llYLDzM4ws-A558E4kuKsxCQb8Drzs94RPdX_w';
+
+let BOOKED_RANGES = [];
+
+async function fetchBookings() {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/bookings?select=from_date,to_date&order=from_date`,
+      {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+    if (!res.ok) throw new Error('Fetch failed');
+    const data = await res.json();
+    BOOKED_RANGES = data.map(r => ({ from: r.from_date, to: r.to_date }));
+  } catch (err) {
+    console.warn('Could not load bookings from Supabase:', err);
+    // Falls back to empty — all dates show as available
+  }
+}
+
 function isBooked(date) {
   const d = date.toISOString().slice(0,10);
   return BOOKED_RANGES.some(r => d >= r.from && d <= r.to);
 }
+
 function buildCalendar(year, month) {
   const names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const today = new Date(); today.setHours(0,0,0,0);
@@ -542,6 +560,7 @@ function buildCalendar(year, month) {
   }
   return html + `</div></div>`;
 }
+
 function renderCalendars() {
   const wrap = document.getElementById('calendarsWrap');
   const now = new Date();
@@ -552,7 +571,10 @@ function renderCalendars() {
   }
   wrap.innerHTML = html;
 }
+
+// Show calendar immediately (all available), then refresh once bookings load
 renderCalendars();
+fetchBookings().then(renderCalendars);
 </script>
 </body>
 </html>
