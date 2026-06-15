@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Things To Do | Casa Fiordalisi · Tuscany</title>
+  <meta name="description" content="Discover the best things to do near Casa Fiordalisi — from hilltop towns and hot air ballooning to food trails, festivals, and lake adventures." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream:#FAF8F4; --stone:#E8E0D0; --olive:#3D4A2E; --terracotta:#C4724A; --terra-dark:#A35A35; --charcoal:#2A2A2A; --mid:#6B6560; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--charcoal); }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 72px; background: rgba(250,248,244,0.97); backdrop-filter: blur(6px); border-bottom: 1px solid var(--stone); transition: box-shadow .3s; }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+    .nav-logo { text-decoration: none; font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--olive); }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a { font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--olive); text-decoration: none; position: relative; padding-bottom: 3px; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: var(--terracotta); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta { background: var(--terracotta) !important; color: #fff !important; padding: 10px 22px !important; border-radius: 2px; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--terra-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--olive); }
+
+    .page-hero { padding-top: 72px; position: relative; height: 46vh; min-height: 320px; display: flex; align-items: flex-end; overflow: hidden; }
+    .page-hero-bg { position: absolute; inset: 0; background: url('https://static.wixstatic.com/media/5f33fc_51308ab0366e4c6a9f78ec87ccd73add~mv2.jpg/v1/fill/w_1920,h_800,al_c,q_85,enc_avif,quality_auto/5f33fc_51308ab0366e4c6a9f78ec87ccd73add~mv2.jpg') center/cover no-repeat; }
+    .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,.1) 0%, rgba(20,30,15,.68) 100%); }
+    .page-hero-content { position: relative; padding: 0 48px 48px; color: #fff; }
+    .page-eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; opacity: .75; margin-bottom: 10px; }
+    .page-hero-content h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; text-shadow: 0 2px 20px rgba(0,0,0,.3); }
+    .page-hero-content p { margin-top: 10px; font-size: .95rem; font-weight: 300; opacity: .85; max-width: 520px; line-height: 1.7; }
+
+    .filter-bar { background: #fff; border-bottom: 1px solid var(--stone); position: sticky; top: 72px; z-index: 90; overflow-x: auto; }
+    .filter-inner { max-width: 1200px; margin: 0 auto; display: flex; padding: 0 48px; gap: 0; }
+    .filter-btn { display: block; padding: 14px 20px; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--mid); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: color .2s, border-color .2s; }
+    .filter-btn:hover { color: var(--olive); border-color: var(--terracotta); }
+    .filter-btn.active { color: var(--olive); border-color: var(--terracotta); }
+
+    .posts-section { max-width: 1200px; margin: 0 auto; padding: 64px 48px 96px; }
+    .posts-count { font-size: .8rem; color: var(--mid); margin-bottom: 36px; letter-spacing: .05em; }
+    .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+
+    .post-card { background: #fff; border-radius: 3px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,.06); transition: transform .25s, box-shadow .25s; display: flex; flex-direction: column; }
+    .post-card:hover { transform: translateY(-5px); box-shadow: 0 10px 36px rgba(0,0,0,.11); }
+    .post-card-img-wrap { position: relative; overflow: hidden; aspect-ratio: 3/2; }
+    .post-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s ease; }
+    .post-card:hover .post-card-img-wrap img { transform: scale(1.05); }
+    .post-card-tag { position: absolute; top: 14px; left: 14px; padding: 4px 10px; background: var(--terracotta); color: #fff; font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; border-radius: 2px; }
+    .post-card-body { padding: 22px 24px 28px; flex: 1; display: flex; flex-direction: column; }
+    .post-card-meta { font-size: .72rem; color: var(--mid); margin-bottom: 10px; display: flex; gap: 12px; }
+    .post-card-body h2 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--olive); line-height: 1.35; margin-bottom: 10px; }
+    .post-card-body p { font-size: .875rem; color: var(--mid); line-height: 1.7; flex: 1; }
+    .post-card-link { display: inline-block; margin-top: 18px; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--terracotta); text-decoration: none; }
+    .post-card-link:hover { color: var(--terra-dark); }
+    .post-card a.card-anchor { text-decoration: none; color: inherit; display: contents; }
+
+    .no-results { display: none; text-align: center; padding: 80px 0; color: var(--mid); font-size: 1rem; }
+    .no-results.show { display: block; }
+
+    footer { background: var(--charcoal); color: rgba(255,255,255,.55); padding: 56px 48px 36px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #fff; margin-bottom: 12px; }
+    .footer-brand p { font-size: .875rem; line-height: 1.75; }
+    footer h4 { font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #fff; margin-bottom: 14px; }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 10px; }
+    footer a { color: rgba(255,255,255,.55); text-decoration: none; font-size: .875rem; }
+    footer a:hover { color: var(--terracotta); }
+    .footer-bottom { max-width: 1100px; margin: 40px auto 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 22px; display: flex; justify-content: space-between; font-size: .75px; }
+
+    @media (max-width: 1024px) { .posts-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; flex-direction: column; gap: 20px; position: absolute; top: 72px; left: 0; right: 0; background: var(--cream); padding: 28px 24px; border-bottom: 1px solid var(--stone); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .page-hero-content { padding: 0 20px 36px; }
+      .filter-inner { padding: 0 8px; }
+      .posts-section { padding: 40px 20px 64px; }
+      .posts-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">Casa Fiordalisi</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="the-house.html">The House</a></li>
+    <li><a href="things-to-do.html" class="active">Things To Do</a></li>
+    <li><a href="index.html#availability">Availability</a></li>
+    <li><a href="index.html#location">Location</a></li>
+    <li><a href="mailto:welcomefiordalisi@gmail.com" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">Casa Fiordalisi · Tuscany</p>
+    <h1>Things To Do</h1>
+    <p>From hilltop towns and hot air balloons to food trails, festivals, and lakeside adventures — everything within reach of the house.</p>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" data-filter="all">All Posts</button>
+    <button class="filter-btn" data-filter="daytrips">Day Trips</button>
+    <button class="filter-btn" data-filter="culture">Culture</button>
+    <button class="filter-btn" data-filter="activities">Activities</button>
+    <button class="filter-btn" data-filter="nature">Nature</button>
+    <button class="filter-btn" data-filter="events">Events</button>
+    <button class="filter-btn" data-filter="restaurants">Restaurants</button>
+    <button class="filter-btn" data-filter="markets">Markets</button>
+    <button class="filter-btn" data-filter="casa-fiordalisi">Casa Fiordalisi</button>
+    <button class="filter-btn" data-filter="sports">Sports</button>
+  </div>
+</div>
+
+<div class="posts-section">
+  <p class="posts-count" id="postsCount">15 articles</p>
+  <div class="posts-grid" id="postsGrid">
+
+    <div class="post-card" data-cats="daytrips">
+      <a href="things-to-do/5-easy-daytrips-by-train-from-florence.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_51308ab0366e4c6a9f78ec87ccd73add~mv2.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_51308ab0366e4c6a9f78ec87ccd73add~mv2.jpg" alt="Florence at sunset" loading="lazy" />
+          <span class="post-card-tag">Day Trips</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Feb 2026</span><span>5 min read</span></div>
+          <h2>5 Easy Daytrips by Train from Florence</h2>
+          <p>Tuscan cities, real food and zero car hire — Pisa, Lucca, Arezzo, Prato and Pistoia all under one hour from Florence.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="culture casa-fiordalisi">
+      <a href="things-to-do/cortona-summer-evenings.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_af1b1a06175c4d6b897d49e50121aa5ff000.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_af1b1a06175c4d6b897d49e50121aa5ff000.jpg" alt="Swallows over Cortona" loading="lazy" />
+          <span class="post-card-tag">Culture</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Jan 2026</span><span>4 min read</span></div>
+          <h2>Cortona: Summer Evenings, Swallows & the Timeless Soul of a Tuscan Hill Town</h2>
+          <p>Just 15 minutes from the house — art, aperitivo, Etruscan history and unforgettable summer evenings.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="activities">
+      <a href="things-to-do/ballooning-tuscany.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_866d8c431f93411a8b830bfc295d4dcb~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_866d8c431f93411a8b830bfc295d4dcb~mv2.jpeg" alt="Hot air balloon over Tuscany" loading="lazy" />
+          <span class="post-card-tag">Activities</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Jan 2026</span><span>3 min read</span></div>
+          <h2>Ballooning in Tuscany — A Bucket List Experience</h2>
+          <p>Rolling hills, vineyards, olive groves and golden morning light. Everything you need to know to book a balloon flight.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="casa-fiordalisi">
+      <a href="things-to-do/casa-fiordalisi-retreat.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_fa304e040bbe4539a601e7091ca32cdff000.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_fa304e040bbe4539a601e7091ca32cdff000.jpg" alt="Garden at Casa Fiordalisi" loading="lazy" />
+          <span class="post-card-tag">Casa Fiordalisi</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Jan 2026</span><span>3 min read</span></div>
+          <h2>Casa Fiordalisi: A Peaceful Tuscan Retreat in the Hills of the Val di Chiana</h2>
+          <p>Surrounded by open countryside yet perfectly positioned for exploring both Tuscany and Umbria.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="activities nature">
+      <a href="things-to-do/lake-trasimeno-cycling-islands.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_3190468f792c40fdbefd018b275b08f6~mv2.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_3190468f792c40fdbefd018b275b08f6~mv2.jpg" alt="Lake Trasimeno" loading="lazy" />
+          <span class="post-card-tag">Nature</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Aug 2025</span><span>2 min read</span></div>
+          <h2>Lake Trasimeno: Fresh Fish, Cycling & Island Adventures</h2>
+          <p>Italy's fourth largest lake — a peaceful alternative to the coast, just 30 minutes from the house.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="daytrips">
+      <a href="things-to-do/orvieto-day-trip.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_1c0620621f644edba1ef4b3a6b9dc531~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_1c0620621f644edba1ef4b3a6b9dc531~mv2.jpeg" alt="Orvieto cathedral" loading="lazy" />
+          <span class="post-card-tag">Day Trips</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Aug 2025</span><span>2 min read</span></div>
+          <h2>Orvieto — Easy Day Trip or Stop En Route from Rome</h2>
+          <p>Perched on a volcanic plateau with a glittering Gothic cathedral, underground tunnels and medieval lanes.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="restaurants daytrips">
+      <a href="things-to-do/truffles-wine-cheese-foodie-trail.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_81f5e048bbe04638923ef84ecfb9d57b~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_81f5e048bbe04638923ef84ecfb9d57b~mv2.jpeg" alt="Tuscan food and wine" loading="lazy" />
+          <span class="post-card-tag">Restaurants</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Aug 2025</span><span>2 min read</span></div>
+          <h2>Truffles, Wine & Cheese — A Foodie Trail from the House</h2>
+          <p>Pecorino in Pienza, Chianti in the vineyards, white truffles in San Miniato. Tuscany's culinary soul at its finest.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="daytrips nature">
+      <a href="things-to-do/lake-trasimeno-castiglione.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_d7f57f27fd9e4227a57e208d4fd89bfa~mv2.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_d7f57f27fd9e4227a57e208d4fd89bfa~mv2.jpg" alt="Lake Trasimeno and Castiglione del Lago" loading="lazy" />
+          <span class="post-card-tag">Day Trips</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Aug 2025</span><span>1 min read</span></div>
+          <h2>Lake Trasimeno & Castiglione del Lago</h2>
+          <p>A walled town overlooking the water — perfect for cycling, boat trips, and lazy lakeside lunches, 30 minutes away.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="restaurants daytrips">
+      <a href="things-to-do/secret-corners-of-florence.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_87503ec5ce1d4d219e4b4805a2056443~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_87503ec5ce1d4d219e4b4805a2056443~mv2.jpeg" alt="River Arno Florence" loading="lazy" />
+          <span class="post-card-tag">Day Trips</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Aug 2025</span><span>2 min read</span></div>
+          <h2>Secret Corners of Florence to Escape the Crowds</h2>
+          <p>Hidden gardens, artisan workshops, Caravaggio without queues — Florence beyond the tourist trail.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="markets daytrips">
+      <a href="things-to-do/visit-arezzo.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/fef05b_a1426038655248758e3244665466a02b~mv2.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/fef05b_a1426038655248758e3244665466a02b~mv2.jpg" alt="Arezzo antiques fair" loading="lazy" />
+          <span class="post-card-tag">Markets</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Jun 2025</span><span>2 min read</span></div>
+          <h2>Visit Arezzo, Capital of the Province</h2>
+          <p>Renaissance art, Italy's oldest antiques fair, and a wonderfully authentic Tuscan city — just 30 minutes away.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="events">
+      <a href="things-to-do/summer-festivals-tuscany-umbria.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_e6fb699ddca04fbd9c663ba4e623f68a~mv2.jpg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_e6fb699ddca04fbd9c663ba4e623f68a~mv2.jpg" alt="Summer festivals Tuscany" loading="lazy" />
+          <span class="post-card-tag">Events</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Jul 2025</span><span>2 min read</span></div>
+          <h2>Summer Festivals in Tuscany & Umbria (July–August)</h2>
+          <p>Umbria Jazz, Puccini by the lake, the Palio di Siena, and barrel races in Montepulciano.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="events">
+      <a href="things-to-do/palio-di-siena.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_3c22b531e5194365b3ddf75a4f055a4b~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_3c22b531e5194365b3ddf75a4f055a4b~mv2.jpeg" alt="Palio di Siena" loading="lazy" />
+          <span class="post-card-tag">Events</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Jul 2025</span><span>2 min read</span></div>
+          <h2>Experiencing the Palio di Siena: What to Know Before You Go</h2>
+          <p>Italy's most famous horse race — centuries of drama, pageantry and neighbourhood pride in the Piazza del Campo.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="events">
+      <a href="things-to-do/palio-dei-rioni-castiglion-fiorentino.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_a231efcb6a274e6283818f229d47d3d6~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_a231efcb6a274e6283818f229d47d3d6~mv2.jpeg" alt="Palio dei Rioni Castiglion Fiorentino" loading="lazy" />
+          <span class="post-card-tag">Events</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Jul 2024</span><span>1 min read</span></div>
+          <h2>Palio dei Rioni, Castiglion Fiorentino</h2>
+          <p>A horseback race between the three districts of the town — medieval pageantry right on your doorstep in June.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="activities">
+      <a href="things-to-do/sentiero-della-bonifica.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/fef05b_bda636a7dc204766a3d8dc0fe68ff683~mv2.png/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/fef05b_bda636a7dc204766a3d8dc0fe68ff683~mv2.png" alt="Sentiero della Bonifica cycling path" loading="lazy" />
+          <span class="post-card-tag">Activities</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Jul 2024</span><span>1 min read</span></div>
+          <h2>Cycling & Walks on the Sentiero della Bonifica</h2>
+          <p>A completely flat 60km canal path from Arezzo to Chiusi — family-friendly cycling accessible directly from the house.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="post-card" data-cats="daytrips culture">
+      <a href="things-to-do/5-easy-daytrips-by-train-from-florence.html">
+        <div class="post-card-img-wrap">
+          <img src="https://static.wixstatic.com/media/5f33fc_87503ec5ce1d4d219e4b4805a2056443~mv2.jpeg/v1/fill/w_600,h_400,fp_0.50_0.50,q_85,enc_avif,quality_auto/5f33fc_87503ec5ce1d4d219e4b4805a2056443~mv2.jpeg" alt="Florence panorama" loading="lazy" />
+          <span class="post-card-tag">Day Trips</span>
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta"><span>Aug 2025</span><span>2 min read</span></div>
+          <h2>Florence: Hidden Gems & Getting There from Casa Fiordalisi</h2>
+          <p>Park at Castiglion Fiorentino station and take the train — stress-free Florence in 1hr 15 minutes.</p>
+          <span class="post-card-link">Read article →</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+  <p class="no-results" id="noResults">No articles in this category yet — check back soon.</p>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Casa Fiordalisi</p>
+      <p>A beautifully renovated Tuscan farmhouse with an infinity pool, four bedrooms, and breathtaking valley views — available for holiday rental in the heart of Tuscany.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="the-house.html">The House</a></li>
+        <li><a href="things-to-do.html">Things To Do</a></li>
+        <li><a href="index.html#availability">Availability</a></li>
+        <li><a href="index.html#location">Location</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:welcomefiordalisi@gmail.com">welcomefiordalisi@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/casa_fiordalisa" target="_blank" rel="noopener">@casa_fiordalisa on Instagram</a></li>
+        <li style="margin-top:14px;font-size:.8rem;color:rgba(255,255,255,.35);line-height:1.65;">Via della Patalecchia, 121<br>52043 Castiglion Fiorentino AR<br>Italy</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Casa Fiordalisi. All rights reserved.</span>
+    <span>Valdichiana · Tuscany · Italy</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40); });
+function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+
+const btns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.post-card');
+const count = document.getElementById('postsCount');
+const noResults = document.getElementById('noResults');
+
+btns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    let visible = 0;
+    cards.forEach(card => {
+      const cats = card.dataset.cats || '';
+      const show = filter === 'all' || cats.includes(filter);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    count.textContent = visible + (visible === 1 ? ' article' : ' articles');
+    noResults.classList.toggle('show', visible === 0);
+  });
+});
+</script>
+</body>
+</html>
