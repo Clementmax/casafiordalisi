@@ -527,7 +527,11 @@ async function fetchBookings() {
     );
     if (!res.ok) throw new Error('Fetch failed');
     const data = await res.json();
-    BOOKED_RANGES = data.map(r => ({ from: r.from_date, to: r.to_date }));
+    BOOKED_RANGES = data.map(r => ({
+      from: r.from_date.slice(0, 10),
+      to:   r.to_date.slice(0, 10)
+    }));
+    console.log('Bookings loaded:', BOOKED_RANGES);
   } catch (err) {
     console.warn('Could not load bookings from Supabase:', err);
     // Falls back to empty — all dates show as available
@@ -543,6 +547,7 @@ function toLocalDateStr(date) {
 
 function isBooked(date) {
   const d = toLocalDateStr(date);
+  console.log('Checking:', d, BOOKED_RANGES);
   return BOOKED_RANGES.some(r => d >= r.from && d <= r.to);
 }
 
