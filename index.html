@@ -534,8 +534,15 @@ async function fetchBookings() {
   }
 }
 
+function toLocalDateStr(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
 function isBooked(date) {
-  const d = date.toISOString().slice(0,10);
+  const d = toLocalDateStr(date);
   return BOOKED_RANGES.some(r => d >= r.from && d <= r.to);
 }
 
