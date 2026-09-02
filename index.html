@@ -116,6 +116,7 @@
     .gallery-grid .g-wide { grid-column: span 2; }
     .gallery-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; cursor: pointer; display: block; transition: opacity .3s, transform .4s; }
     .gallery-grid img:hover { opacity: .9; transform: scale(1.01); }
+    .gallery-cta { text-align: center; margin-top: 36px; }
 
     /* ── THINGS TO DO ── */
     #todo { background: var(--cream); }
@@ -295,12 +296,13 @@
     <div class="gallery-grid" id="galleryGrid">
       <img class="g-tall" src="https://static.wixstatic.com/media/fef05b_29dc9bb49dd2427fa6063fcec7989a3b~mv2.jpg/v1/fill/w_600,h_800,al_c,q_85,enc_avif,quality_auto/IMG_8774_edited_edited.jpg"   alt="Pool with castle" onclick="openLightbox(0)" loading="lazy" />
       <img class="g-wide" src="https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_900,h_400,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg" alt="Brolio from pool" onclick="openLightbox(1)" loading="lazy" />
-      <img                src="https://static.wixstatic.com/media/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png" alt="Infinity pool" onclick="openLightbox(2)" loading="lazy" />
-      <img                src="https://static.wixstatic.com/media/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg" alt="Pool from garden" onclick="openLightbox(3)" loading="lazy" />
-      <img                src="https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg" alt="Dining room" onclick="openLightbox(4)" loading="lazy" />
-      <img                src="https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg" alt="Dining area" onclick="openLightbox(5)" loading="lazy" />
-      <img                src="https://static.wixstatic.com/media/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg" alt="Lounge" onclick="openLightbox(6)" loading="lazy" />
-      <img                src="https://static.wixstatic.com/media/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg" alt="Garden view" onclick="openLightbox(7)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg" alt="Pool from garden" onclick="openLightbox(2)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg" alt="Dining room" onclick="openLightbox(3)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg" alt="Lounge" onclick="openLightbox(4)" loading="lazy" />
+      <img                src="https://static.wixstatic.com/media/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg/v1/fill/w_440,h_330,al_c,q_85,enc_avif,quality_auto/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg" alt="Garden view" onclick="openLightbox(5)" loading="lazy" />
+    </div>
+    <div class="gallery-cta">
+      <a href="the-house.html" class="btn btn-primary">See All Rooms &amp; Full Details</a>
     </div>
   </div>
 </section>
@@ -492,10 +494,8 @@ function toggleMenu() { document.getElementById('navLinks').classList.toggle('op
 const lbImages = [
   'https://static.wixstatic.com/media/fef05b_29dc9bb49dd2427fa6063fcec7989a3b~mv2.jpg/v1/fill/w_1400,h_1000,al_c,q_85,enc_avif,quality_auto/IMG_8774_edited_edited.jpg',
   'https://static.wixstatic.com/media/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg/v1/fill/w_1400,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_f80d54d9849c4d7192e993d80db46a08~mv2.jpg',
-  'https://static.wixstatic.com/media/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_639829714f584605b97f6b3ab7b03243~mv2.png',
   'https://static.wixstatic.com/media/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_fd05c53892594e6da00cd28d2507dcb3~mv2.jpg',
   'https://static.wixstatic.com/media/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_c1a44f2216564eb4b3db191ee96ef1ea~mv2.jpg',
-  'https://static.wixstatic.com/media/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_8b4f4d376de54c058c9db3fa75ee74cb~mv2.jpg',
   'https://static.wixstatic.com/media/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_e82c8d510a484992a17e9de7294bbec7~mv2.jpg',
   'https://static.wixstatic.com/media/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/fef05b_cc016c1e8e974fa1928e83d31dd04293~mv2.jpg',
 ];
