@@ -220,6 +220,29 @@
       .footer-bottom { flex-direction: column; gap: 10px; }
       .btn-outline-light { display: none; }
     }
+    /* reviews */
+    #reviews { background: #fff; }
+    .rv-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 40px; margin: 6px 0 44px; padding: 26px 30px; border: 1px solid var(--stone); border-radius: 4px; background: var(--cream); }
+    .rv-score { display: flex; align-items: center; gap: 12px; }
+    .rv-num { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; color: var(--olive); line-height: 1; }
+    .rv-stars { color: #B8933B; letter-spacing: 2px; font-size: 1rem; }
+    .rv-summary-text { display: flex; flex-direction: column; gap: 4px; }
+    .rv-summary-text strong { font-size: .95rem; color: var(--charcoal); }
+    .rv-summary-text span { font-size: .75rem; color: var(--mid); }
+    .rv-fav { display: flex; flex-direction: column; gap: 4px; padding-left: 28px; border-left: 1px solid var(--stone); max-width: 340px; }
+    .rv-fav-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+    .rv-fav-sub { font-size: .76rem; color: var(--mid); line-height: 1.5; }
+    .rv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .rv-card { margin: 0; padding: 30px 28px; background: var(--cream); border-radius: 4px; display: flex; flex-direction: column; gap: 16px; }
+    .rv-card blockquote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.02rem; line-height: 1.7; color: var(--charcoal); flex: 1; }
+    .rv-card figcaption { display: flex; flex-direction: column; gap: 3px; padding-top: 14px; border-top: 1px solid var(--stone); }
+    .rv-name { font-weight: 700; font-size: .9rem; color: var(--olive); }
+    .rv-meta { font-size: .78rem; color: var(--mid); }
+    .rv-src { font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; margin-top: 4px; }
+    .rv-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 40px; }
+    .rv-airbnb-link { font-size: .85rem; font-weight: 700; color: var(--terracotta); text-decoration: none; border-bottom: 1px solid rgba(43,85,184,.3); }
+    .rv-airbnb-link:hover { border-color: var(--terracotta); }
+    @media (max-width: 900px) { .rv-grid { grid-template-columns: 1fr; } .rv-fav { padding-left: 0; border-left: none; } }
   </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://casafiordalisi.com/#website","url":"https://casafiordalisi.com/","name":"Casa Fiordalisi","inLanguage":"en"},{"@type":["LodgingBusiness","VacationRental"],"@id":"https://casafiordalisi.com/#casa-fiordalisi","name":"Casa Fiordalisi","description":"A four-bedroom stone farmhouse with a private infinity pool near Cortona in the Valdichiana, Tuscany. Self-catering holiday rental sleeping 8.","url":"https://casafiordalisi.com/","image":["https://casafiordalisi.com/images/site/brolio-from-pool.jpg","https://casafiordalisi.com/images/site/dining-room.jpg","https://casafiordalisi.com/images/site/garden-view.jpg","https://casafiordalisi.com/images/site/infinity-pool.jpg","https://casafiordalisi.com/images/site/lounge.jpg","https://casafiordalisi.com/images/site/pool-from-garden.jpg","https://casafiordalisi.com/images/site/pool-with-castle-view.jpg"],"logo":"https://casafiordalisi.com/logo.svg","email":"welcomefiordalisi@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Via della Patalecchia, 121","addressLocality":"Castiglion Fiorentino","addressRegion":"AR","postalCode":"52043","addressCountry":"IT"},"containedInPlace":{"@type":"Place","name":"Valdichiana, Tuscany, Italy"},"numberOfRooms":4,"numberOfBedrooms":4,"numberOfBathroomsTotal":3,"occupancy":{"@type":"QuantitativeValue","maxValue":8},"amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Private infinity pool","value":true},{"@type":"LocationFeatureSpecification","name":"Private gardens","value":true},{"@type":"LocationFeatureSpecification","name":"Outdoor dining terrace","value":true},{"@type":"LocationFeatureSpecification","name":"Stone fireplace with wood burner","value":true},{"@type":"LocationFeatureSpecification","name":"Games barn with table tennis","value":true},{"@type":"LocationFeatureSpecification","name":"Fully equipped kitchen","value":true}],"sameAs":["https://www.instagram.com/casa_fiordalisa"]}]}</script>
 </head>
@@ -231,6 +254,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="/the-house">The House</a></li>
     <li><a href="/things-to-do">Things To Do</a></li>
+    <li><a href="/reviews">Reviews</a></li>
     <li><a href="#availability">Availability</a></li>
     <li><a href="#location">Location</a></li>
     <li><a href="mailto:welcomefiordalisi@gmail.com" class="nav-cta">Book Now</a></li>
@@ -307,6 +331,40 @@
     </div>
     <div class="gallery-cta">
       <a href="/the-house" class="btn btn-primary">See All Rooms &amp; Full Details</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-inner">
+    <p class="eyebrow">Guest Reviews</p>
+    <h2>Loved by Our Guests</h2>
+    <div class="rv-summary">
+        <div class="rv-score"><span class="rv-num">4.89</span><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span></div>
+        <div class="rv-summary-text"><strong>28 reviews on Airbnb</strong><span>Rating as shown on Airbnb, October 2026</span></div>
+        <div class="rv-fav"><span class="rv-fav-title">Guest Favourite</span><span class="rv-fav-sub">Airbnb’s recognition for homes guests love, based on ratings, reviews and reliability</span></div>
+      </div>
+    <div class="rv-grid">
+        <figure class="rv-card">
+          <span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <blockquote>“From start to finish, this was a fabulous 18 days for us in Tuscany. The property is even more beautiful than the photos … The outdoor space is gorgeous, and the pool was perfect and refreshing.”</blockquote>
+          <figcaption><span class="rv-name">Karen</span><span class="rv-meta">Palm Desert, California · June 2026</span><span class="rv-src">Airbnb</span></figcaption>
+        </figure>
+        <figure class="rv-card">
+          <span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <blockquote>“It is tastefully decorated, very comfortable and has everything you need for a pleasant stay. When we went outside, the surprise was even greater: beautiful views and a spectacular infinity pool.”</blockquote>
+          <figcaption><span class="rv-name">Jesus</span><span class="rv-meta">August 2026</span><span class="rv-src">Translated by Airbnb</span></figcaption>
+        </figure>
+        <figure class="rv-card">
+          <span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <blockquote>“It was even better in person than we had anticipated - inside and outside. The location was perfect for us, as it is private yet close to many towns … We all had a fabulous time and have already discussed returning again one day.”</blockquote>
+          <figcaption><span class="rv-name">Jennifer</span><span class="rv-meta">Canada · August 2025</span><span class="rv-src">Airbnb</span></figcaption>
+        </figure>
+    </div>
+    <div class="rv-actions">
+      <a href="/reviews" class="btn btn-primary">Read More Guest Reviews</a>
+      <a href="https://www.airbnb.com/rooms/53213792" class="rv-airbnb-link" target="_blank" rel="noopener">See all 28 reviews on Airbnb ↗</a>
     </div>
   </div>
 </section>
@@ -459,6 +517,7 @@
       <ul>
         <li><a href="/the-house">The House</a></li>
             <li><a href="/things-to-do">Things To Do</a></li>
+            <li><a href="/reviews">Reviews</a></li>
         <li><a href="#availability">Availability</a></li>
         <li><a href="#location">Location</a></li>
       </ul>
