@@ -140,6 +140,7 @@
     .cal-dot { width: 13px; height: 13px; border-radius: 50%; }
     .dot-available { background: #7BAE7F; }
     .dot-booked    { background: #C4724A; }
+    .dot-closed    { background: #DDD6C9; }
     .dot-today     { background: var(--olive); }
     .calendars-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(285px,1fr)); gap: 24px; }
     .cal-month { background: #fff; border: 1px solid rgba(0,0,0,.07); border-radius: 4px; padding: 22px; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
@@ -150,6 +151,7 @@
     .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: .78rem; border-radius: 50%; }
     .cal-day.available { background: #7BAE7F; color: #fff; font-weight: 600; }
     .cal-day.booked    { background: #C4724A; color: #fff; font-weight: 600; }
+    .cal-day.closed    { background: #EAE4D9; color: #A8A094; }
     .cal-day.today     { background: var(--olive); color: #fff; font-weight: 700; }
     .cal-day.past      { color: #ccc; }
     .cal-cta { margin-top: 44px; text-align: center; padding: 44px 24px; background: var(--olive); border-radius: 4px; color: #fff; }
@@ -378,10 +380,11 @@
   <div class="section-inner">
     <p class="eyebrow">When Can You Come?</p>
     <h2>Availability Calendar</h2>
-    <p class="lead">Check our availability below. Green dates are open — get in touch to reserve your stay.</p>
+    <p class="lead">Casa Fiordalisi is open from 1 May to 31 October. Green dates are available — get in touch to reserve your stay.</p>
     <div class="cal-legend">
       <div class="cal-legend-item"><div class="cal-dot dot-available"></div> Available</div>
       <div class="cal-legend-item"><div class="cal-dot dot-booked"></div> Booked</div>
+      <div class="cal-legend-item"><div class="cal-dot dot-closed"></div> Closed (out of season)</div>
       <div class="cal-legend-item"><div class="cal-dot dot-today"></div> Today</div>
     </div>
     <div class="calendars-wrap" id="calendarsWrap"></div>
@@ -530,6 +533,16 @@ const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 
 let BOOKED_RANGES = [];
 
+/* Season and calendar range — edit these to change what the calendar shows */
+const SEASON_OPEN_MONTH  = 5;   // 1 May  (months: 1 = January … 12 = December)
+const SEASON_CLOSE_MONTH = 10;  // 31 October
+const CALENDAR_LAST_MONTH = '2027-10';  // last month shown (YYYY-MM)
+
+function isInSeason(date) {
+  const m = date.getMonth() + 1;
+  return m >= SEASON_OPEN_MONTH && m <= SEASON_CLOSE_MONTH;
+}
+
 async function fetchBookings() {
   try {
     const res = await fetch(
@@ -579,8 +592,9 @@ function buildCalendar(year, month) {
   for (let d = 1; d <= daysInMonth; d++) {
     const date = new Date(year, month, d);
     let cls = 'cal-day';
+    if (date < today) { html += `<div class="cal-day"></div>`; continue; }  // hide past days
     if (date.toDateString() === today.toDateString()) cls += ' today';
-    else if (date < today) cls += ' past';
+    else if (!isInSeason(date)) cls += ' closed';
     else if (isBooked(date)) cls += ' booked';
     else cls += ' available';
     html += `<div class="${cls}">${d}</div>`;
@@ -592,8 +606,9 @@ function renderCalendars() {
   const wrap = document.getElementById('calendarsWrap');
   const now = new Date();
   let html = '';
-  for (let i = 0; i < 6; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth()+i, 1);
+  const [lastY, lastM] = CALENDAR_LAST_MONTH.split('-').map(Number);
+  const last = new Date(lastY, lastM - 1, 1);
+  for (let d = new Date(now.getFullYear(), now.getMonth(), 1); d <= last; d = new Date(d.getFullYear(), d.getMonth() + 1, 1)) {
     html += buildCalendar(d.getFullYear(), d.getMonth());
   }
   wrap.innerHTML = html;
